@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Press Coffee Calculator | Stack & Signal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c2a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: #fffbf5;
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a2c2a;
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8b7355;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-label {
+            font-weight: 600;
+            color: #4a2c2a;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .roast-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .roast-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: 2px solid #d4c4b0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .roast-btn:hover {
+            border-color: #8b7355;
+        }
+
+        .roast-btn.active {
+            border-color: #4a2c2a;
+            background: #4a2c2a;
+            color: white;
+        }
+
+        .roast-btn .roast-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .roast-btn .roast-ratio {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .ratio-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .ratio-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #d4c4b0;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .ratio-btn:hover {
+            border-color: #8b7355;
+        }
+
+        .ratio-btn.active {
+            border-color: #4a2c2a;
+            background: #4a2c2a;
+            color: white;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            background: #f5f0e8;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a2c2a;
+        }
+
+        .input-label .unit {
+            font-weight: 400;
+            color: #8b7355;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #d4c4b0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: inherit;
+        }
+
+        .input-row input:focus {
+            outline: none;
+            border-color: #4a2c2a;
+        }
+
+        .input-row button {
+            padding: 12px 20px;
+            background: #4a2c2a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: inherit;
+        }
+
+        .input-row button:hover {
+            background: #3a1c1a;
+        }
+
+        .toggle-group {
+            display: inline-flex;
+            background: #e8e0d5;
+            border-radius: 6px;
+            padding: 3px;
+            margin-left: 8px;
+        }
+
+        .toggle-btn {
+            padding: 4px 12px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #5a4a3a;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: #4a2c2a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .results {
+            background: linear-gradient(135deg, #4a2c2a 0%, #6b3d3a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .results-title {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 12px;
+        }
+
+        .results-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .result-item {
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .tip {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f0ebe3;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #5a4a3a;
+            line-height: 1.5;
+        }
+
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #fffbf5;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .back-link a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>☕ French Press Calculator</h1>
+            <p class="subtitle">Get your coffee-to-water ratio just right</p>
+
+            <div class="section">
+                <div class="section-label">Roast Level</div>
+                <div class="roast-buttons">
+                    <button class="roast-btn" data-roast="light" data-ratio="15">
+                        <div class="roast-name">Light</div>
+                        <div class="roast-ratio">1:15 typical</div>
+                    </button>
+                    <button class="roast-btn active" data-roast="medium" data-ratio="16">
+                        <div class="roast-name">Medium</div>
+                        <div class="roast-ratio">1:16 typical</div>
+                    </button>
+                    <button class="roast-btn" data-roast="dark" data-ratio="17">
+                        <div class="roast-name">Dark</div>
+                        <div class="roast-ratio">1:17 typical</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-label">Coffee-to-Water Ratio</div>
+                <div class="ratio-selector">
+                    <button class="ratio-btn" data-ratio="15">1:15</button>
+                    <button class="ratio-btn active" data-ratio="16">1:16</button>
+                    <button class="ratio-btn" data-ratio="17">1:17</button>
+                    <button class="ratio-btn" data-ratio="18">1:18</button>
+                </div>
+            </div>
+
+            <div class="input-section">
+                <div class="input-group">
+                    <div class="input-label">
+                        <span>Coffee</span>
+                        <span class="unit">grams</span>
+                    </div>
+                    <div class="input-row">
+                        <input type="number" id="coffeeInput" placeholder="e.g. 30">
+                        <button onclick="calculateFromCoffee()">Calculate</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-label">
+                        <span>Water</span>
+                        <span class="unit">
+                            <span id="waterUnitLabel">oz</span>
+                            <span class="toggle-group">
+                                <button class="toggle-btn active" data-unit="oz">oz</button>
+                                <button class="toggle-btn" data-unit="ml">ml</button>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="input-row">
+                        <input type="number" id="waterInput" placeholder="e.g. 16">
+                        <button onclick="calculateFromWater()">Calculate</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results">
+                <div class="results-title">Your Recipe</div>
+                <div class="results-row">
+                    <div class="result-item">
+                        <div class="result-value" id="resultCoffee">—</div>
+                        <div class="result-label">grams coffee</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-value" id="resultWater">—</div>
+                        <div class="result-label"><span id="resultWaterUnit">oz</span> water</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">💡 Why different ratios?</div>
+                <strong>Light roasts</strong> are denser and need less water (1:15) for full extraction.
+                <strong>Dark roasts</strong> are more soluble and need more water (1:17-18) to avoid bitterness.
+            </div>
+        </div>
+        <div class="back-link">
+            <a href="/">← Back to Stack & Signal</a>
+        </div>
+    </div>
+
+    <script>
+        const OZ_TO_ML = 29.5735;
+        const ML_TO_OZ = 1 / OZ_TO_ML;
+        
+        let selectedRatio = 16;
+        let waterUnit = 'oz';
+
+        document.querySelectorAll('.roast-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.roast-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const ratio = parseInt(btn.dataset.ratio);
+                selectedRatio = ratio;
+                
+                document.querySelectorAll('.ratio-btn').forEach(rb => {
+                    rb.classList.toggle('active', parseInt(rb.dataset.ratio) === ratio);
+                });
+                
+                autoRecalculate();
+            });
+        });
+
+        document.querySelectorAll('.ratio-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedRatio = parseInt(btn.dataset.ratio);
+                autoRecalculate();
+            });
+        });
+
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const oldUnit = waterUnit;
+                waterUnit = btn.dataset.unit;
+                
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('waterUnitLabel').textContent = waterUnit;
+                
+                const waterInput = document.getElementById('waterInput');
+                if (waterInput.value) {
+                    const oldValue = parseFloat(waterInput.value);
+                    if (oldUnit === 'oz' && waterUnit === 'ml') {
+                        waterInput.value = (oldValue * OZ_TO_ML).toFixed(1);
+                    } else if (oldUnit === 'ml' && waterUnit === 'oz') {
+                        waterInput.value = (oldValue * ML_TO_OZ).toFixed(1);
+                    }
+                }
+                
+                document.getElementById('resultWaterUnit').textContent = waterUnit;
+                autoRecalculate();
+            });
+        });
+
+        function calculateFromCoffee() {
+            const coffee = parseFloat(document.getElementById('coffeeInput').value);
+            if (isNaN(coffee) || coffee <= 0) return;
+            
+            document.getElementById('waterInput').value = '';
+            
+            const waterMl = coffee * selectedRatio;
+            const waterDisplay = waterUnit === 'oz' ? waterMl * ML_TO_OZ : waterMl;
+            
+            displayResults(coffee, waterDisplay);
+        }
+
+        function calculateFromWater() {
+            const waterInput = parseFloat(document.getElementById('waterInput').value);
+            if (isNaN(waterInput) || waterInput <= 0) return;
+            
+            document.getElementById('coffeeInput').value = '';
+            
+            const waterMl = waterUnit === 'oz' ? waterInput * OZ_TO_ML : waterInput;
+            const coffee = waterMl / selectedRatio;
+            
+            displayResults(coffee, waterInput);
+        }
+
+        function displayResults(coffee, water) {
+            document.getElementById('resultCoffee').textContent = coffee.toFixed(1);
+            document.getElementById('resultWater').textContent = water.toFixed(1);
+            document.getElementById('resultWaterUnit').textContent = waterUnit;
+        }
+
+        function autoRecalculate() {
+            const coffeeInput = document.getElementById('coffeeInput').value;
+            const waterInput = document.getElementById('waterInput').value;
+            
+            if (coffeeInput && !waterInput) {
+                calculateFromCoffee();
+            } else if (waterInput && !coffeeInput) {
+                calculateFromWater();
+            }
+        }
+
+        document.getElementById('coffeeInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateFromCoffee();
+        });
+        
+        document.getElementById('waterInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') calculateFromWater();
+        });
+    </script>
+</body>
+</html>
