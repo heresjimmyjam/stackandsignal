@@ -1,6 +1,6 @@
 ---
 title: "Projects"
-date: 2025-12-031
+date: 2025-12-31
 draft: false
 ---
 
