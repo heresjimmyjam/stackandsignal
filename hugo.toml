@@ -12,10 +12,10 @@ theme = 'ananke'
     url = "/about/"
     weight = 1
   [[menu.main]]
-    name = "Projects"
-    url = "/projects/"
+    name = "Newsletter"
+    url = "/newsletter/"
     weight = 2
   [[menu.main]]
-    name = "Posts"
-    url = "/posts/"
+    name = "Projects"
+    url = "/projects/"
     weight = 3
