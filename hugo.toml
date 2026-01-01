@@ -1,7 +1,7 @@
 baseURL = 'https://stackandsignal.com/'
 languageCode = 'en-us'
 title = 'Stack & Signal'
-theme = 'ananke'
+theme = 'stackandsignal'
 
 [params]
   description = "Projects, thoughts, and random things I'm working on."

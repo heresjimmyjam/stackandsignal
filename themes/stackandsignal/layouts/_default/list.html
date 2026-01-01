@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="page-content">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+    
+    {{ if .Pages }}
+    <div class="post-list">
+        {{ range .Pages }}
+        {{ if ne .File.LogicalName "_index.md" }}
+        <article class="post-item">
+            <a href="{{ .Permalink }}">
+                <h3>{{ .Title }}</h3>
+                {{ if .Description }}<p>{{ .Description }}</p>{{ end }}
+            </a>
+        </article>
+        {{ end }}
+        {{ end }}
+    </div>
+    {{ end }}
+</div>
+{{ end }}

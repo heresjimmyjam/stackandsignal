@@ -1,0 +1,18 @@
+<header class="site-header">
+    <div class="header-inner">
+        <a href="/" class="site-name">
+            <div class="stack-layers">
+                <div class="layer layer-1"></div>
+                <div class="layer layer-2"></div>
+                <div class="layer layer-3"></div>
+                <div class="layer layer-4"></div>
+            </div>
+            <span class="logo-text">Stack & Signal</span>
+        </a>
+        <nav class="site-nav">
+            {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}" class="{{ if $.IsMenuCurrent "main" . }}active{{ end }}">{{ .Name }}</a>
+            {{ end }}
+        </nav>
+    </div>
+</header>

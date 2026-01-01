@@ -13,7 +13,7 @@
       <link>http://localhost:1313/projects/coffee-calculator/</link>
       <pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/coffee-calculator/</guid>
-      <description>&lt;p&gt;A calculator to help get your French press ratios right, based on roast level.&lt;/p&gt;&#xA;&lt;p&gt;&lt;em&gt;(Full interactive version coming soon)&lt;/em&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;I built this web app to calculate the right coffee-to-water ratio for my French press based on roast level. Supports oz and ml.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
