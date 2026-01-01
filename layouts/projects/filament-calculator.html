@@ -201,11 +201,27 @@
             background: #2a3a5e;
             color: #fff;
         }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .back-link a {
+            color: #fff;
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .back-link a:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
     <div class="calculator">
-        <h1>🎨 Filament Cost Calculator</h1>
+        <h1>Filament Cost Calculator</h1>
         <p class="subtitle">Calculate the true cost of your 3D prints</p>
         
         <div class="input-group">
@@ -289,6 +305,10 @@
         </div>
         
         <button class="clear-btn" onclick="clearPrintFields()">Clear Print Fields</button>
+        
+        <div class="back-link">
+            <a href="/projects/">← Back to Stack & Signal</a>
+        </div>
     </div>
 
     <script>
