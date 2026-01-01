@@ -108,7 +108,7 @@ a:hover {
 .layer-4 { width: 19px; margin-left: 5px; background: var(--color-lavender); }
 
 .logo-text {
-    font-size: 1.4rem;  /* was 1.15rem */
+    font-size: 2rem;  /* was 1.15rem */
     font-weight: 600;
     color: var(--text-color);
 }
