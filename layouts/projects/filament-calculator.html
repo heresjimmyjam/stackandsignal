@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filament Cost Calculator | Stack & Signal</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .calculator {
+            background: #16213e;
+            border-radius: 16px;
+            padding: 32px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+        
+        .subtitle {
+            color: #888;
+            margin: 0 0 24px 0;
+            font-size: 0.9rem;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+        
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-prefix {
+            position: absolute;
+            left: 14px;
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .input-suffix {
+            position: absolute;
+            right: 14px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            padding-left: 28px;
+            font-size: 1.1rem;
+            border: 2px solid #2a3a5e;
+            border-radius: 10px;
+            background: #0f1629;
+            color: #fff;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #4a6fa5;
+        }
+        
+        input.no-prefix {
+            padding-left: 14px;
+            padding-right: 40px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 28px 0 16px 0;
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #2a3a5e;
+        }
+        
+        .result-card {
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-top: 24px;
+            border: 1px solid #2a3a5e;
+        }
+        
+        .result-label {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #4ade80;
+        }
+        
+        .cost-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #2a3a5e;
+        }
+        
+        .breakdown-item {
+            text-align: center;
+        }
+        
+        .breakdown-label {
+            color: #666;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .breakdown-value {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .presets {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        
+        .preset-btn {
+            flex: 1;
+            padding: 8px;
+            font-size: 0.8rem;
+            border: 1px solid #2a3a5e;
+            border-radius: 6px;
+            background: #0f1629;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .preset-btn:hover {
+            background: #1a2744;
+            color: #fff;
+            border-color: #4a6fa5;
+        }
+        
+        .clear-btn {
+            width: 100%;
+            padding: 12px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            border: 1px solid #2a3a5e;
+            border-radius: 8px;
+            background: transparent;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .clear-btn:hover {
+            background: #2a3a5e;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>🎨 Filament Cost Calculator</h1>
+        <p class="subtitle">Calculate the true cost of your 3D prints</p>
+        
+        <div class="input-group">
+            <label for="rollCost">Roll Cost</label>
+            <div class="input-wrapper">
+                <span class="input-prefix">$</span>
+                <input type="text" id="rollCost" placeholder="0.00" value="25.00">
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="rollWeight">Roll Weight</label>
+            <div class="input-wrapper">
+                <input type="number" id="rollWeight" class="no-prefix" placeholder="1000" min="1" value="1000">
+                <span class="input-suffix">g</span>
+            </div>
+            <div class="presets">
+                <button class="preset-btn" onclick="setRollWeight(250)">250g</button>
+                <button class="preset-btn" onclick="setRollWeight(500)">500g</button>
+                <button class="preset-btn" onclick="setRollWeight(1000)">1kg</button>
+                <button class="preset-btn" onclick="setRollWeight(2000)">2kg</button>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="printWeight">Print Weight (from slicer)</label>
+            <div class="input-wrapper">
+                <input type="number" id="printWeight" class="no-prefix" placeholder="0" step="0.1" min="0">
+                <span class="input-suffix">g</span>
+            </div>
+        </div>
+        
+        <div class="section-header">Electricity (optional)</div>
+        
+        <div class="input-group">
+            <label for="electricityRate">Electricity Rate</label>
+            <div class="input-wrapper">
+                <span class="input-prefix">$</span>
+                <input type="text" id="electricityRate" placeholder="0.00" value="0.12">
+                <span class="input-suffix">/kWh</span>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="printTime">Print Time</label>
+            <div class="input-wrapper">
+                <input type="number" id="printTime" class="no-prefix" placeholder="0" step="0.1" min="0">
+                <span class="input-suffix">hrs</span>
+            </div>
+            <div class="presets">
+                <button class="preset-btn" onclick="setPrinterWattage(150)">P1S (~150W)</button>
+                <button class="preset-btn" onclick="setPrinterWattage(180)">w/ AMS (~180W)</button>
+            </div>
+        </div>
+        
+        <div class="input-group">
+            <label for="printerWattage">Printer Power Draw</label>
+            <div class="input-wrapper">
+                <input type="number" id="printerWattage" class="no-prefix" placeholder="150" min="0" value="150">
+                <span class="input-suffix">W</span>
+            </div>
+        </div>
+        
+        <div class="result-card">
+            <div class="result-label">Total Print Cost</div>
+            <div class="result-value" id="result">$0.00</div>
+            <div class="cost-breakdown">
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Filament</div>
+                    <div class="breakdown-value" id="filamentCost">$0.00</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Electricity</div>
+                    <div class="breakdown-value" id="electricityCost">$0.00</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-label">Per Gram</div>
+                    <div class="breakdown-value" id="costPerGram">$0.0000</div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="clear-btn" onclick="clearPrintFields()">Clear Print Fields</button>
+    </div>
+
+    <script>
+        const rollCostInput = document.getElementById('rollCost');
+        const rollWeightInput = document.getElementById('rollWeight');
+        const printWeightInput = document.getElementById('printWeight');
+        const electricityRateInput = document.getElementById('electricityRate');
+        const printTimeInput = document.getElementById('printTime');
+        const printerWattageInput = document.getElementById('printerWattage');
+        const resultDisplay = document.getElementById('result');
+        const filamentCostDisplay = document.getElementById('filamentCost');
+        const electricityCostDisplay = document.getElementById('electricityCost');
+        const costPerGramDisplay = document.getElementById('costPerGram');
+
+        // Currency formatting
+        function formatCurrency(value) {
+            const num = parseFloat(value.replace(/[^0-9.]/g, '')) || 0;
+            return num.toFixed(2);
+        }
+
+        function handleCurrencyInput(e) {
+            const input = e.target;
+            const cursorPos = input.selectionStart;
+            const oldLength = input.value.length;
+            
+            // Allow typing, format on blur
+            const rawValue = input.value.replace(/[^0-9.]/g, '');
+            
+            // Prevent multiple decimals
+            const parts = rawValue.split('.');
+            if (parts.length > 2) {
+                input.value = parts[0] + '.' + parts.slice(1).join('');
+            }
+        }
+
+        function handleCurrencyBlur(e) {
+            const input = e.target;
+            input.value = formatCurrency(input.value);
+            calculate();
+        }
+
+        rollCostInput.addEventListener('input', handleCurrencyInput);
+        rollCostInput.addEventListener('blur', handleCurrencyBlur);
+        electricityRateInput.addEventListener('input', handleCurrencyInput);
+        electricityRateInput.addEventListener('blur', handleCurrencyBlur);
+
+        function calculate() {
+            const rollCost = parseFloat(rollCostInput.value.replace(/[^0-9.]/g, '')) || 0;
+            const rollWeight = parseFloat(rollWeightInput.value) || 1;
+            const printWeight = parseFloat(printWeightInput.value) || 0;
+            const electricityRate = parseFloat(electricityRateInput.value.replace(/[^0-9.]/g, '')) || 0;
+            const printTime = parseFloat(printTimeInput.value) || 0;
+            const printerWattage = parseFloat(printerWattageInput.value) || 0;
+
+            const costPerGram = rollCost / rollWeight;
+            const filamentCost = costPerGram * printWeight;
+            
+            // Electricity: (watts / 1000) * hours * $/kWh
+            const kWh = (printerWattage / 1000) * printTime;
+            const electricityCost = kWh * electricityRate;
+            
+            const totalCost = filamentCost + electricityCost;
+
+            resultDisplay.textContent = '$' + totalCost.toFixed(2);
+            filamentCostDisplay.textContent = '$' + filamentCost.toFixed(2);
+            electricityCostDisplay.textContent = '$' + electricityCost.toFixed(2);
+            costPerGramDisplay.textContent = '$' + costPerGram.toFixed(4);
+        }
+
+        function setRollWeight(weight) {
+            rollWeightInput.value = weight;
+            calculate();
+        }
+
+        function setPrinterWattage(wattage) {
+            printerWattageInput.value = wattage;
+            calculate();
+        }
+
+        function clearPrintFields() {
+            printWeightInput.value = '';
+            printTimeInput.value = '';
+            calculate();
+        }
+
+        rollWeightInput.addEventListener('input', calculate);
+        printWeightInput.addEventListener('input', calculate);
+        printTimeInput.addEventListener('input', calculate);
+        printerWattageInput.addEventListener('input', calculate);
+
+        // Initial calculation
+        calculate();
+    </script>
+</body>
+</html>
