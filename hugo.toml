@@ -3,6 +3,9 @@ languageCode = 'en-us'
 title = 'Stack & Signal'
 theme = 'stackandsignal'
 
+[pagination]
+  pagerSize = 10
+
 [params]
   description = "Projects, thoughts, and random things I'm working on."
   

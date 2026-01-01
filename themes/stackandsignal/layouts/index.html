@@ -1,19 +1,103 @@
 {{ define "main" }}
 <div class="home-content">
-    <section class="intro">
-        <p>{{ .Site.Params.description }}</p>
-    </section>
+    {{ $posts := where .Site.RegularPages "Section" "posts" }}
+    {{ $paginator := .Paginate $posts 10 }}
     
-    <section class="recent-posts">
-        <h2>Recent Posts</h2>
-        {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
-        <article class="post-item">
-            <a href="{{ .Permalink }}">
-                <h3>{{ .Title }}</h3>
-                <time>{{ .Date.Format "Jan 2, 2006" }}</time>
-            </a>
-        </article>
+    {{ range $index, $page := $paginator.Pages }}
+    <article class="post-item {{ with .Params.type }}post-type-{{ . }}{{ else }}post-type-post{{ end }}">
+        
+        {{/* Title - links externally for link type, internally otherwise */}}
+        {{ if eq .Params.type "link" }}
+            <h2><a href="{{ .Params.link }}" target="_blank" rel="noopener">{{ .Title }}</a></h2>
+            <span class="link-source">{{ .Params.link | replaceRE "^https?://(www\\.)?" "" | replaceRE "/.*$" "" }}</span>
+        {{ else if eq .Params.type "quote" }}
+            <blockquote class="quote-content">
+                {{ .Summary }}
+            </blockquote>
+            {{ with .Params.attribution }}
+            <cite class="quote-attribution">— {{ . }}</cite>
+            {{ end }}
+        {{ else }}
+            <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
         {{ end }}
-    </section>
+        
+        {{/* Featured Image */}}
+        {{ with .Params.image }}
+        <a href="{{ $.Permalink }}" class="post-image">
+            <img src="{{ . }}" alt="{{ $.Title }}">
+        </a>
+        {{ end }}
+        
+        {{/* Content Preview - first 2 paragraphs */}}
+        {{ if ne .Params.type "quote" }}
+        <div class="post-excerpt">
+            {{ $content := .RawContent }}
+            {{ $paragraphs := split $content "\n\n" }}
+            {{ $count := 0 }}
+            {{ range $paragraphs }}
+                {{ if and (gt (len .) 10) (lt $count 2) }}
+                    {{ $count = add $count 1 }}
+                    <p>{{ . | markdownify }}</p>
+                {{ end }}
+            {{ end }}
+        </div>
+        
+        <a href="{{ .Permalink }}" class="read-more">Read more →</a>
+        {{ end }}
+        
+        {{/* Tags */}}
+        {{ with .Params.tags }}
+        <div class="post-tags">
+            {{ range . }}
+            <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
+            {{ end }}
+        </div>
+        {{ end }}
+        
+        {{/* Relative Date */}}
+        <time class="post-date" datetime="{{ .Date.Format "2006-01-02" }}">
+            {{ $now := now }}
+            {{ $days := div (sub $now.Unix .Date.Unix) 86400 }}
+            {{ if eq $days 0 }}
+                today
+            {{ else if eq $days 1 }}
+                yesterday
+            {{ else if lt $days 7 }}
+                {{ $days }} days ago
+            {{ else if lt $days 14 }}
+                last week
+            {{ else if lt $days 30 }}
+                {{ div $days 7 }} weeks ago
+            {{ else if lt $days 60 }}
+                last month
+            {{ else if lt $days 365 }}
+                {{ div $days 30 }} months ago
+            {{ else if lt $days 730 }}
+                last year
+            {{ else }}
+                {{ div $days 365 }} years ago
+            {{ end }}
+        </time>
+    </article>
+    
+    {{/* Newsletter signup after every 5th post */}}
+    {{ if eq (mod (add $index 1) 5) 0 }}
+    <div class="newsletter-inline">
+        <p class="newsletter-inline-text">Get occasional updates on projects and things I'm thinking about.</p>
+        <form action="https://buttondown.com/api/emails/embed-subscribe/stackandsignal" method="post">
+            <input type="email" name="email" placeholder="you@example.com" required />
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+    {{ end }}
+    
+    {{ end }}
+    
+    {{/* Pagination */}}
+    {{ if $paginator.HasNext }}
+    <nav class="pagination">
+        <a href="{{ $paginator.Next.URL }}" class="pagination-older">Older →</a>
+    </nav>
+    {{ end }}
 </div>
 {{ end }}
