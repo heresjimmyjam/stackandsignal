@@ -1,6 +1,8 @@
 {{ define "main" }}
 <div class="page-content">
+    {{ if and (ne .Section "about") (ne .Section "newsletter") (ne .Section "projects") }}
     <h1>{{ .Title }}</h1>
+    {{ end }}
     {{ .Content }}
     
     {{ if eq .Section "projects" }}
