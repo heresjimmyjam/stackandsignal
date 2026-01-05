@@ -113,6 +113,13 @@ a:hover {
     color: var(--text-color);
 }
 
+.logo-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-left: 8px;
+}
+
 .site-nav {
     display: flex;
     gap: 24px;
