@@ -9,7 +9,7 @@ I'll be the first to admit that doing quick calculations in my head has never be
 
 So when I got my new french press (an [Espro P3](https://www.nytimes.com/wirecutter/reviews/best-french-press/), if you're curious) and the instructions threw out ratio suggestions based on roast level, I got a headache. I just wanted coffee. Instead I was staring at a bag of beans trying to do division.
 
-So I built a calculator to do the math for me.
+So I [built a calculator](/projects/coffee-calculator/) to do the math for me.
 
 ## How it works
 
