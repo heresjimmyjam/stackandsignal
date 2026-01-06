@@ -8,7 +8,7 @@
     {{ if eq .Section "projects" }}
     <div class="project-grid">
         {{ range .Pages }}
-        {{ if ne .File.LogicalName "_index.md" }}
+        {{ if and .File (ne .File.LogicalName "_index.md") }}
         <a href="{{ .Permalink }}" class="project-card">
             <div class="project-icon">{{ .Params.icon | default "🔧" }}</div>
             <h3>{{ .Title }}</h3>
@@ -20,7 +20,7 @@
     {{ else if .Pages }}
     <div class="post-list">
         {{ range .Pages }}
-        {{ if ne .File.LogicalName "_index.md" }}
+        {{ if and .File (ne .File.LogicalName "_index.md") }}
         <article class="post-item">
             <a href="{{ .Permalink }}">
                 <h3>{{ .Title }}</h3>

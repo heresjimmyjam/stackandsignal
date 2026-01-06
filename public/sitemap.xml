@@ -2,29 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/about/</loc>
+    <loc>https://stackandsignal.com/about/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/tags/coffee/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/posts/coffee-calc/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/newsletter/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/tags/projects/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/tags/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/tags/tools/</loc>
+    <lastmod>2026-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/projects/filament-calculator/</loc>
+    <lastmod>2026-01-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://stackandsignal.com/projects/coffee-calculator/</loc>
     <lastmod>2025-12-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/projects/coffee-calculator/</loc>
+    <loc>https://stackandsignal.com/posts/</loc>
     <lastmod>2025-12-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/hello-world/</loc>
+    <loc>https://stackandsignal.com/projects/</loc>
     <lastmod>2025-12-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-12-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/projects/</loc>
-    <lastmod>2025-12-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-12-31T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/newsletter/</loc>
-    <lastmod>2025-01-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tags/</loc>
+    <loc>https://stackandsignal.com/categories/</loc>
   </url>
 </urlset>

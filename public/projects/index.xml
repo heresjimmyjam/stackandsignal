@@ -2,17 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Projects on Stack &amp; Signal</title>
-    <link>http://localhost:1313/projects/</link>
+    <link>https://stackandsignal.com/projects/</link>
     <description>Recent content in Projects on Stack &amp; Signal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Dec 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://stackandsignal.com/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Filament Cost Calculator</title>
+      <link>https://stackandsignal.com/projects/filament-calculator/</link>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <guid>https://stackandsignal.com/projects/filament-calculator/</guid>
+      <description></description>
+    </item>
     <item>
       <title>French Press Coffee Calculator</title>
-      <link>http://localhost:1313/projects/coffee-calculator/</link>
+      <link>https://stackandsignal.com/projects/coffee-calculator/</link>
       <pubDate>Wed, 31 Dec 2025 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/coffee-calculator/</guid>
+      <guid>https://stackandsignal.com/projects/coffee-calculator/</guid>
       <description></description>
     </item>
   </channel>
