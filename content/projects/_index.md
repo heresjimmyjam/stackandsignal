@@ -4,4 +4,4 @@ date: 2025-12-31
 draft: false
 ---
 
-Side projects and tools I've built.
+Things I've built — some useful, some just for fun. Its ever growing, just not at the speed you'd expect.
