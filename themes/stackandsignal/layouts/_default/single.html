@@ -1,12 +1,25 @@
 {{ define "main" }}
 <article class="single-post">
     <header class="post-header">
+        {{ if and .File (ne .File.LogicalName "newsletter-almost-there.md") (ne .File.LogicalName "newsletter-confirmed.md") }}
         <h1>{{ .Title }}</h1>
+        {{ with .Params.image }}
+        <img src="{{ . }}" alt="{{ $.Title }}" class="post-hero-image">
+        {{ end }}
         <time>{{ .Date.Format "January 2, 2006" }}</time>
+        {{ end }}
     </header>
     
     <div class="post-content">
         {{ .Content }}
     </div>
+    
+    {{ with .Params.tags }}
+    <div class="post-tags">
+        {{ range . }}
+        <a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}" class="tag">#{{ . }}</a>
+        {{ end }}
+    </div>
+    {{ end }}
 </article>
 {{ end }}
