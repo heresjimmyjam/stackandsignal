@@ -552,6 +552,14 @@ a:hover {
     
     .site-name {
         justify-content: center;
+        flex-wrap: wrap;
+        row-gap: 0;
+    }
+
+    .logo-author {
+        width: 100%;
+        margin-left: 0;
+        margin-top: -2px;
     }
     
     .site-nav {
