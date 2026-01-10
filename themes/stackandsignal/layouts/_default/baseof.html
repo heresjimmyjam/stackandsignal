@@ -7,7 +7,7 @@
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if .IsPage }}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="/css/style.css">
-    {{ template "_internal/opengraph.html" . }}
+    {{ partial "opengraph.html" . }}
 </head>
 <body>
     <div class="color-bars">
