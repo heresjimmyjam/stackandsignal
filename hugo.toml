@@ -7,7 +7,7 @@ theme = 'stackandsignal'
   pagerSize = 10
 
 [params]
-  description = "Projects, thoughts, and random things I'm working on."
+  description = "A website about marketing technology, side projects, and building things on the internet."
   
 [menu]
   [[menu.main]]
