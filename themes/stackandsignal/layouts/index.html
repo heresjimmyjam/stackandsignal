@@ -23,8 +23,8 @@
         
         {{/* Featured Image */}}
         {{ with .Params.image }}
-        <a href="{{ $.Permalink }}" class="post-image">
-            <img src="{{ . }}" alt="{{ $.Title }}">
+        <a href="{{ $page.Permalink }}" class="post-image">
+            <img src="{{ . }}" alt="{{ $page.Title }}">
         </a>
         {{ end }}
         

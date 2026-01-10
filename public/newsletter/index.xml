@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Newsletter on Stack &amp; Signal</title>
-    <link>https://stackandsignal.com/newsletter/</link>
+    <link>http://localhost:1313/newsletter/</link>
     <description>Recent content in Newsletter on Stack &amp; Signal</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="https://stackandsignal.com/newsletter/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/newsletter/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
